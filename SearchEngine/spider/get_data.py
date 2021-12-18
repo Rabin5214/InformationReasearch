@@ -56,14 +56,24 @@ def get_html(proxies_ip):
 	print(data_di)
 	return data_di
 
-
-def get_every_page():
+def get_every_page(pid):
 	"""
 
 	:return:
 	"""
-	response = requests.get('https://book.qidian.com/info/1013448948/')
-	print(response.text)
+	data_di={}
+	data_di['id']=pid
+	response = requests.get('https://book.qidian.com/info/{}/'.format(pid))
+	html=BS(response.text,'lxml')
+	sub_book_info=html.find('div',{'class':'book-info'})
+	data_di['title']=sub_book_info.select('em')[0].text
+	data_di['writer']=sub_book_info.find('a',{'class':'writer'}).text
+	di=sub_book_info.find('p',{"class":"tag"}).text.split('\n')
+	data_di['tag']=[x for x in di if len(x)>0]
+	data_di['intro']=sub_book_info.find('p',{'class':"intro"}).text
+	data_di['book-intro']=''.join(html.find('div',{'class':"book-intro"}).find('p').text.replace(' ','').replace('\t','').replace('\n','').split())
+	#di=''.join(di)
+	print(data_di)
 
 
 def get_status(file_path,i):
@@ -97,14 +107,20 @@ def get_status(file_path,i):
 
 if __name__ == '__main__':
 	pool=Pool(10)
-	file_path='/home/lht/informationResearch/SearchEngine/spider/data/id_{}.txt'
+	#file_path='/home/lht/informationResearch/SearchEngine/spider/data/id_{}.txt'
+	file_path='/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/id_{}.txt'
 	for i in range(0,10):
 		pool.apply_async(get_status,(file_path,i,))
+
+	pool.close()  # 等子进程执行完毕后关闭进程池
+		# time.sleep(2)
+		# p.terminate()     # 立刻关闭进程池
+	pool.join()
+	pool.terminate()
 	# id_file='/home/lht/informationResearch/SearchEngine/spider/data/'
 	# get_html('one')
 	# proxies_ip=get_ip()
 	#proxies_ip = 'none'
 	# data=get_html(proxies_ip)
-	# get_every_page()
+	get_every_page(pid='123456')
 	#get_status()
-	#####
