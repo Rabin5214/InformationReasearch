@@ -107,31 +107,31 @@ def get_status(file_path, i):
 	# proxy=get_ip()
 	result_sub = []
 	count = 0
-	# for j in range(0, 10):
-	for k in range(0, 10):
-		for l in range(0, 10):
-			for _i in range(0, 10):
-				for _j in range(0, 10):
-					for _k in range(0, 10):
-						for _l in range(0, 10):
-							id_sub = str(i) + str(k) + str(l) + str(_i) + str(_j) + str(_k) + str(_l)
-							total_id = '10' + id_sub
+	for j in range(0, 10):
+		for k in range(0, 10):
+			for l in range(0, 10):
+				for _i in range(0, 10):
+					for _j in range(0, 10):
+						for _k in range(0, 10):
+							for _l in range(0, 10):
+								id_sub = str(i) + str(j)+str(k) + str(l) + str(_i) + str(_j) + str(_k) + str(_l)
+								total_id = '10' + id_sub
 
-							url = 'https://book.qidian.com/info/{}/'.format(total_id)
-							num = k % 2
-							status_code = requests.head(url, headers=headers[num])
+								url = 'https://book.qidian.com/info/{}/'.format(total_id)
+								num = j % 2
+								status_code = requests.head(url, headers=headers[num])
 							# print(total_id)
-							if status_code.status_code == 200:
-								get_every_page(file_path, total_id, headers[num], proxy, url)
-							if count % 500 == 0 and count != 0:
-								time.sleep(5)
-								proxy = get_ip()
-							try:
-								get_every_page(file_path,total_id,headers[num],proxy,url)
-							except:
-								with open("false.txt",'a',encoding='utf-8') as f:
-									f.write(url+'\n')
-								continue
+								if status_code.status_code == 200:
+									get_every_page(file_path, total_id, headers[num], proxy, url)
+								if count % 500 == 0 and count != 0:
+									time.sleep(5)
+									proxy = get_ip()
+								try:
+									get_every_page(file_path,total_id,headers[num],proxy,url)
+								except:
+									with open("false.txt",'a',encoding='utf-8') as f:
+										f.write(url+'\n')
+									continue
 							# result_sub.append(total_id)
 						# print(total_id)
 						# with open(file_path.format(i), 'a', encoding='utf-8') as f:
@@ -154,14 +154,14 @@ def test_status(id, i, file_path):
 
 
 if __name__ == '__main__':
-	pool = Pool(100)
+	pool = Pool(10)
 	# file_path='/home/lht/informationResearch/SearchEngine/spider/data/id_{}.txt'
 	file_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/id_{}.txt'
 	#headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
 
 	# get_every_page(file_path,id='1031770177',headers=headers,proxy=get_ip(),url='https://book.qidian.com/info/1031770177/')
 	# get_status(file_path,3)
-	for i in range(10, 100):
+	for i in range(0, 10):
 		pool.apply_async(get_status, (file_path, i,))
 	# 	#pool.apply_async(test_status, ('1030870265', i, file_path,))
 	#
