@@ -122,16 +122,17 @@ def get_status(file_path, i):
 								status_code = requests.head(url, headers=headers[num])
 							# print(total_id)
 								if status_code.status_code == 200:
-									get_every_page(file_path, total_id, headers[num], proxy, url)
-								if count % 500 == 0 and count != 0:
-									time.sleep(5)
-									proxy = get_ip()
-								try:
-									get_every_page(file_path,total_id,headers[num],proxy,url)
-								except:
-									with open("false.txt",'a',encoding='utf-8') as f:
-										f.write(url+'\n')
-									continue
+									count+=1
+									#get_every_page(file_path, total_id, headers[num], proxy, url)
+									if count % 200 == 0 and count != 0:
+										time.sleep(5)
+										proxy = get_ip()
+									try:
+										get_every_page(file_path,total_id,headers[num],proxy,url)
+									except:
+										with open("false.txt",'a',encoding='utf-8') as f:
+											f.write(url+'\n')
+										continue
 							# result_sub.append(total_id)
 						# print(total_id)
 						# with open(file_path.format(i), 'a', encoding='utf-8') as f:
