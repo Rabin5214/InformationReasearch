@@ -158,8 +158,6 @@ if __name__ == '__main__':
 	# file_path='/home/lht/informationResearch/SearchEngine/spider/data/id_{}.txt'
 	file_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/id_{}.txt'
 	#headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
-
-
 	# get_every_page(file_path,id='1031770177',headers=headers,proxy=get_ip(),url='https://book.qidian.com/info/1031770177/')
 	# get_status(file_path,3)
 
