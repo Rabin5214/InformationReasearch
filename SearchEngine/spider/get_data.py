@@ -161,6 +161,7 @@ if __name__ == '__main__':
 
 	# get_every_page(file_path,id='1031770177',headers=headers,proxy=get_ip(),url='https://book.qidian.com/info/1031770177/')
 	# get_status(file_path,3)
+
 	for i in range(0, 10):
 		pool.apply_async(get_status, (file_path, i,))
 	# 	#pool.apply_async(test_status, ('1030870265', i, file_path,))
