@@ -169,6 +169,7 @@ if __name__ == '__main__':
 	# # time.sleep(2)
 	# # p.terminate()     # 立刻关闭进程池
 	pool.join()
+
 	pool.terminate()
 # id_file='/home/lht/informationResearch/SearchEngine/spider/data/'
 # get_html('one')
