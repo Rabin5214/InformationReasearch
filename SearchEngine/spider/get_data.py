@@ -125,7 +125,7 @@ def get_status(file_path, i):
 									count+=1
 									#get_every_page(file_path, total_id, headers[num], proxy, url)
 									if count % 200 == 0 and count != 0:
-										time.sleep(5)
+										#time.sleep(5)
 										proxy = get_ip()
 									try:
 										get_every_page(file_path,total_id,headers[num],proxy,url)
