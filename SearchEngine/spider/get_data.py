@@ -134,6 +134,7 @@ def get_status(file_path, i):
 										f.write(url + '\n')
 									continue
 					# result_sub.append(total_id)
+
 				# print(total_id)
 				# with open(file_path.format(i), 'a', encoding='utf-8') as f:
 				# f.write(total_id + '\n')
