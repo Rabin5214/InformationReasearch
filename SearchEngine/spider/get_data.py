@@ -118,7 +118,7 @@ def get_status(file_path, i):
 							total_id = '101' + id_sub
 
 							url = 'https://book.qidian.com/info/{}/'.format(total_id)
-							num = j % 2
+							num = k % 2
 							status_code = requests.head(url, headers=headers[num])
 							# print(total_id)
 							if status_code.status_code == 200:
