@@ -115,10 +115,10 @@ def get_status(file_path, i):
 					for _k in range(0, 10):
 						for _l in range(0, 10):
 							id_sub = str(i) + str(k) + str(l) + str(_i) + str(_j) + str(_k) + str(_l)
-							total_id = '101' + id_sub
+							total_id = '101' + id_sub       #进行修改
 
 							url = 'https://book.qidian.com/info/{}/'.format(total_id)
-							num = j % 2
+							num = k % 2
 							status_code = requests.head(url, headers=headers[num])
 							# print(total_id)
 							if status_code.status_code == 200:
@@ -134,6 +134,7 @@ def get_status(file_path, i):
 										f.write(url + '\n')
 									continue
 					# result_sub.append(total_id)
+
 				# print(total_id)
 				# with open(file_path.format(i), 'a', encoding='utf-8') as f:
 				# f.write(total_id + '\n')
