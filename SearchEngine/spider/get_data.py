@@ -158,7 +158,7 @@ def test_status(id, i, file_path):
 import os
 import glob
 had_speder=[]
-file_data_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/*.txt'
+file_data_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/'
 file_dir = os.listdir(file_data_path)
 for file in file_dir:
 	if os.path.splitext(file)[1]=='.txt':
