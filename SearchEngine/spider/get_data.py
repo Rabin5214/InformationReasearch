@@ -22,6 +22,7 @@ import random
 
 def get_ip():
 	"""
+
 	:return:
 	"""
 	pt = ProxyTool.ProxyTool()
