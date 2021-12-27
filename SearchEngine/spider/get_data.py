@@ -107,8 +107,8 @@ def get_status(file_path, i):
 	# while len(proxy) ==0:
 	# proxy=get_ip()
 	result_sub = []
-	count = 0
 	count_temp=0
+	count = 0
 	with open(file_data_path.format(i), 'r', encoding='utf-8') as f:
 		final_id = f.readline().strip('\n')
 	# for j in range(0, 10):
