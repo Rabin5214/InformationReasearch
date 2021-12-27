@@ -107,6 +107,8 @@ def get_status(file_path, i):
 	# proxy=get_ip()
 	result_sub = []
 	count = 0
+	with open(file_data_path.format(i), 'r', encoding='utf-8') as f:
+		final_id = f.readline().strip('\n')
 	# for j in range(0, 10):
 	for k in range(0, 10):
 		for l in range(0, 10):
@@ -115,8 +117,8 @@ def get_status(file_path, i):
 					for _k in range(0, 10):
 						for _l in range(0, 10):
 							id_sub = str(i) + str(k) + str(l) + str(_i) + str(_j) + str(_k) + str(_l)
-							total_id = '101' + id_sub       #进行修改
-							if total_id in had_speder:
+							total_id = '101' + id_sub  # 进行修改
+							if int(total_id) <= int(final_id):
 								continue
 							url = 'https://book.qidian.com/info/{}/'.format(total_id)
 							num = k % 2
@@ -125,20 +127,24 @@ def get_status(file_path, i):
 							if status_code.status_code == 200:
 								count += 1
 								# get_every_page(file_path, total_id, headers[num], proxy, url)
-								if count % 500 == 0 and count != 0:
+								if count % 100 == 0 and count != 0:
 									# time.sleep(5)
 									proxy = get_ip()
+									with open(file_data_path.format(i), 'w', encoding='utf-8') as f:
+										f.write(total_id)
+									final_id = total_id
+
 								try:
 									get_every_page(file_path, total_id, headers[num], proxy, url)
 								except:
 									with open("false.txt", 'a', encoding='utf-8') as f:
 										f.write(url + '\n')
 									continue
-					# result_sub.append(total_id)
+				# result_sub.append(total_id)
 
-				# print(total_id)
-				# with open(file_path.format(i), 'a', encoding='utf-8') as f:
-				# f.write(total_id + '\n')
+			# print(total_id)
+			# with open(file_path.format(i), 'a', encoding='utf-8') as f:
+			# f.write(total_id + '\n')
 
 
 # print(type(status_code.status_code))
@@ -155,19 +161,21 @@ def test_status(id, i, file_path):
 		with open(file_path.format(i), 'a', encoding='utf-8') as f:
 			f.write(id + '\n')
 
+
 import os
 import glob
-had_speder=[]
-file_data_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/'
-file_dir = os.listdir(file_data_path)
-for file in file_dir:
-	if os.path.splitext(file)[1]=='.txt':
-		had_speder.append(os.path.splitext(file)[0].split('_')[1])
+
+had_speder = []
+file_data_path = './statistic/final_{}.txt'
+# file_dir = os.listdir(file_data_path)
+# for file in file_dir:
+# 	if os.path.splitext(file)[1]=='.txt':
+# 		had_speder.append(os.path.splitext(file)[0].split('_')[1])
 if __name__ == '__main__':
 	pool = Pool(10)
 	# file_path='/home/lht/informationResearch/SearchEngine/spider/data/id_{}.txt'
 
-	file_path = '/Users/rabin/Desktop/informationResearch/SearchEngine/spider/data/id_{}.txt'
+	file_path = './data/id_{}.txt'
 	# headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
 	# get_every_page(file_path,id='1031770177',headers=headers,proxy=get_ip(),url='https://book.qidian.com/info/1031770177/')
 	# get_status(file_path,3)
