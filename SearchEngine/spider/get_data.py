@@ -107,6 +107,7 @@ def get_status(file_path, i):
 	# proxy=get_ip()
 	result_sub = []
 	count = 0
+	count_temp=0
 	with open(file_data_path.format(i), 'r', encoding='utf-8') as f:
 		final_id = f.readline().strip('\n')
 	# for j in range(0, 10):
@@ -120,6 +121,11 @@ def get_status(file_path, i):
 							total_id = '101' + id_sub  # 进行修改
 							if int(total_id) <= int(final_id):
 								continue
+							count_temp+=1
+							if count_temp%1000==0 and count_temp!=0:
+								with open(file_data_path.format(i), 'w', encoding='utf-8') as f:
+									f.write(total_id)
+								final_id = total_id
 							url = 'https://book.qidian.com/info/{}/'.format(total_id)
 							num = k % 2
 							status_code = requests.head(url, headers=headers[num])
@@ -130,9 +136,6 @@ def get_status(file_path, i):
 								if count % 100 == 0 and count != 0:
 									# time.sleep(5)
 									proxy = get_ip()
-									with open(file_data_path.format(i), 'w', encoding='utf-8') as f:
-										f.write(total_id)
-									final_id = total_id
 
 								try:
 									get_every_page(file_path, total_id, headers[num], proxy, url)
