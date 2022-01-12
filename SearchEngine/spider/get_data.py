@@ -25,6 +25,7 @@ def get_ip():
 
 	:return:
 	"""
+
 	pt = ProxyTool.ProxyTool()
 	proxies_ip = pt.getProxy(num_proxies=1, max_tries=10)
 	while len(proxies_ip) == 0:
@@ -106,8 +107,8 @@ def get_status(file_path, i):
 	# while len(proxy) ==0:
 	# proxy=get_ip()
 	result_sub = []
-	count = 0
 	count_temp=0
+	count = 0
 	with open(file_data_path.format(i), 'r', encoding='utf-8') as f:
 		final_id = f.readline().strip('\n')
 	# for j in range(0, 10):
@@ -118,7 +119,7 @@ def get_status(file_path, i):
 					for _k in range(0, 10):
 						for _l in range(0, 10):
 							id_sub = str(i) + str(k) + str(l) + str(_i) + str(_j) + str(_k) + str(_l)
-							total_id = '101' + id_sub  # 进行修改
+							total_id = '103' + id_sub  # 进行修改
 							if int(total_id) <= int(final_id):
 								continue
 							count_temp+=1
