@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adults</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+        }
+    </script>
+    <script>
+        function check_radio_elder() {
+            var yes_no = $(":radio[name=get_pension]:checked").val();
+            var elder=document.getElementById('elder_judge');
+            var _elder = document.getElementById('elder_judge_');
+            if (yes_no == '1') {
+                _elder.style.display = 'block';
+                elder.style.display='none';
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+<div id="elder_judge" style="display: block;">
+    <form name="elder_judge" action="/judge_elder/" method="post">
+        <p>请问是否获得退休待遇（获取退休金或者退休证、养老保险等）</p><br>
+        <input type="radio" name="get_pension" value="0" onclick="check_radio_elder()"><label for="r1">是</label>
+        <input type="radio" name="get_pension" value="1" onclick="check_radio_elder()"><label for="r1">否</label>
+        <br>
+        <input type="submit" value="确认">
+    </form>
+
+</div>
+<div id="elder_judge_" style="display: none">
+    <form name="elder_judge_" action="/judge_elder_/" method="post">
+        <p>请问是否与用人单位签订了劳动合同?</p><br>
+        <input type="radio" name="get_protocol" value="0" ><label for="r1">是</label>
+        <input type="radio" name="get_protocol" value="1" ><label for="r1">否</label>
+        <br>
+        <p>请问签订的劳动合同是否到期?</p><br>
+        <input type="radio" name="protocol_time" value="0" ><label for="r1">是</label>
+        <input type="radio" name="protocol_time" value="1" ><label for="r1">否</label>
+        <br>
+        <p>请问是否是退休前签订的合同?</p><br>
+        <input type="radio" name="protocol_start_time" value="0" ><label for="r1">是</label>
+        <input type="radio" name="protocol_start_time" value="1" ><label for="r1">否</label>
+        <br>
+        <input type="submit" value="确认">
+    </form>
+</div>
+</body>
+</html>

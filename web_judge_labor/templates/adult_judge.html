@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Adults</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+        }
+    </script>
+    <script>
+        function check_radio_student() {
+
+            var yes_no = $(":radio[name=is_student]:checked").val();
+
+            if (yes_no == "0") {
+                alert("在校大学生为劳务合同");
+                window.location.href = "http://183.174.229.140:8080";
+            }
+            var official = document.getElementById('_official');
+            var student = document.getElementById("_student");
+            official.style.display = 'block';
+            student.style.display = 'none';
+
+        }
+
+        function check_radio_official() {
+            var _yes_no = $(":radio[name=is_official]:checked").val();
+
+            var _official = document.getElementById("_official");
+            var official = document.getElementById("official");
+            var _worker = document.getElementById("_worker");
+            if (_yes_no == "0") {
+
+                official.style.display = 'block';
+                _official.style.display = 'none';
+            }
+            if (_yes_no == "1") {
+
+                _worker.style.display = 'block';
+                _official.style.display = 'none';
+
+            }
+        }
+
+        function check_radio_tiefanwan() {
+            var yes_no_ = $(":radio[name=is_tiefanwan]:checked").val();
+            var _other = document.getElementById("_other");
+            var official=document.getElementById('official')
+
+            if (yes_no_ == '1') {
+                _other.style.display = 'block';
+                official.style.display='none';
+            }
+            if (yes_no_ == '2') {
+                _other.style.display = 'block';
+                official.style.display='none';
+            }
+        }
+
+        function check_radio_worker (){
+            var yes_no = $(":radio[name=is_worker]:checked").val()
+            var _peasantry = document.getElementById("_peasantry");
+            var _rider = document.getElementById("_rider");
+            var _other = document.getElementById("_other");
+            if (yes_no == '0') {
+                _peasantry.style.display = 'block';
+                _rider.style.display='none';
+                _other.style.display='none';
+            }
+            if (yes_no == '1') {
+                _peasantry.style.display='none';
+                _rider.style.display = 'block';
+                _other.style.display='none';
+            }
+            if (yes_no == '2') {
+                _peasantry.style.display='none';
+                _rider.style.display='none';
+                _other.style.display = 'block';
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="_student" style="display: block">
+    <form>
+        <p>请问是否为在校学生？<br>
+            <input type="radio" name="is_student" value="0" onclick="check_radio_student()"><label for="r1">是</label>
+            <input type="radio" name="is_student" value="1" onclick="check_radio_student()"><label for="r2">不是</label>
+        </p>
+    </form>
+
+</div>
+<div id="_official" style="display: none">
+    <form>
+        <p>请问你的工作单位是否是国家单位、国家机关（模型判断国家机关、事业性单位)<br>
+            <input type="radio" name="is_official" value="0" onclick="check_radio_official()"><label for="r3">是</label>
+            <input type="radio" name="is_official" value="1" onclick="check_radio_official()"><label for="r4">不是</label>
+        </p>
+    </form>
+</div>
+
+<!--1请问是否是否与该单位签订了合同、协议等？2 请确认协议、合同上的工作单位（公司、企业、工厂）与工作单位（实际工作单位名称）是否一致-->
+<div id="official" style="display: none">
+    <form name="official" action="/judge_official/" method="post">
+        <p>请输入签订的协议名称<br>
+            协议名称：(若未签协议，则填"无")<br>
+            <input type="text" name="protocol_name"><br>
+            请问是否与该单位签订了合同、协议等？<br>
+            <input type="radio" name="whether_protocol" value="0"><label for="r1">是</label>
+            <input type="radio" name="whether_protocol" value="1"><label for="r2">否</label>
+            <br>
+        </p>
+        <p>
+            请确认协议、合同上的工作单位（公司、企业、工厂）与工作单位（实际工作单位名称）是否一致?<br>
+            <input type="radio" name="protocol_same" value="0"><label for="r1">是</label>
+            <input type="radio" name="protocol_same" value="1"><label for="r2">否</label>
+
+        </p>
+        <p>
+            请确认是否有编制？<br>
+            <input type="radio" name="is_tiefanwan" value="0" onclick="check_radio_tiefanwan()"><label
+                for="r1">是</label>
+            <input type="radio" name="is_tiefanwan" value="1" onclick="check_radio_tiefanwan()"><label
+                for="r2">否</label>
+            <input type="radio" name="is_tiefanwan" value="2" onclick="check_radio_tiefanwan()"><label
+                for="r3">不确定</label>
+        </p>
+        <input type="submit" value="提交">
+    </form>
+</div>
+<div id="_worker" style="display: none">
+
+    <form><p>请问你属于以下哪种情况？</p><br>
+        <input type="radio" name="is_worker" value="0" onclick="check_radio_worker()"><label for="r1">农民工</label>
+        <input type="radio" name="is_worker" value="1" onclick="check_radio_worker()"><label
+                for="r2">网约车司机、外卖员</label>
+        <input type="radio" name="is_worker" value="2" onclick="check_radio_worker()"><label
+                for="r3">其他</label>
+    </form>
+</div>
+
+<div id="_peasantry" style="display: none">
+    <!--请问你的工作城市是？老板是否有营业执照或者为公司、企业?-->
+    <form name="labor" action="/judge_peasantry/" method="post">
+        <p>请问你的工作城市是？</p><br>
+        <input type="radio" name="work_address" value="0"><label for="r3">北上广深</label>
+        <input type="radio" name="word_address" value="1"><label for="r4">其他城市</label>
+        <br>
+        <p>老板是否有营业执照或者公司、企业？</p><br>
+        <input type="radio" name="work_license" value="0"><label for="r3">是</label>
+        <input type="radio" name="word_license" value="1"><label for="r4">否</label>
+        <br>
+        <input type="submit" value="确定">
+    </form>
+</div>
+<div id="_rider" style="display: none">
+    <!--本人是否与平台签订了协议?-->
+    <form name="rider" action="/judge_rider/" method="post">
+        <p>本人是否与平台签订了协议?</p><br>
+        <input type="radio" name="work_protocol" value="0"><label for="r3">是</label>
+        <input type="radio" name="word_protocol" value="1"><label for="r4">否</label>
+        <br>
+        <input type="submit" value="确定">
+    </form>
+</div>
+
+<div id="_other" style="display: none">
+    <!--？-->
+    <form name="other" action="/judge_other/" method="post">
+        <p>请问是否签订了劳动合同?</p><br>
+        <input type="radio" name="labor_protocol" value="0"><label for="r3">是</label>
+        <input type="radio" name="labor_protocol" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问工资是否定时发放?</p><br>
+        <input type="radio" name="salary_on_time" value="0"><label for="r3">是</label>
+        <input type="radio" name="salary_on_time" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问工资是否由老板、公司或财务发放?</p><br>
+        <input type="radio" name="get_salary_by_company" value="0"><label for="r3">是</label>
+        <input type="radio" name="get_salary_by_company" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问是否有正常连续的工作时间?</p><br>
+        <input type="radio" name="normal_work_time" value="0"><label for="r3">是</label>
+        <input type="radio" name="normal_work_time" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问是否有正常的工作制度管理?</p><br>
+        <input type="radio" name="character_of_service" value="0"><label for="r3">是</label>
+        <input type="radio" name="character_of_service" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问是否有欠薪现象？</p><br>
+        <input type="radio" name="withholding_wages" value="0"><label for="r3">是</label>
+        <input type="radio" name="withholding_wages" value="1"><label for="r4">否</label>
+        <br>
+        <p>请问是否发过工资?</p><br>
+        <input type="radio" name="get_salary" value="0"><label for="r3">是</label>
+        <input type="radio" name="get_salary" value="1"><label for="r4">否</label>
+        <br>
+        <input type="submit" value="确定">
+    </form>
+</div>
+</body>
+</html>
