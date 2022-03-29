@@ -43,8 +43,10 @@
             var yes_no = $(":radio[name='is_labor_law']:checked").val();
             if (yes_no == "1") {
                 alert("非劳动法问题");
+                window.location.href = "http://localhost:8080"
+                //window.location.href = 'http://183.174.229.140:8080';
 
-                window.location.href = 'http://183.174.229.140:8080';
+
             }
             var div1 = document.getElementById('div1');
             var div_judge = document.getElementById("judge1");
@@ -62,7 +64,10 @@
         <h1>劳动合同判断</h1>
         <p>
 
-        <h1>请输入你的年龄: </h1><input type="text" name="age"><br><br>
+        请输入你的年龄: <br><input type="text" name="age"><br>
+        </p>
+        <p>
+        请选择你的性别<br>
         <input type="radio" name="sex" id="man" value="0"/> <label for="r1">男</label>
         <input type="radio" name="sex" id="woman" value="1"/> <label for="r2">女</label>
         <br>
